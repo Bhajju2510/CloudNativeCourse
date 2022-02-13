@@ -1,1 +1,1 @@
-# CloudNativeCourse
+Go Rocks!
