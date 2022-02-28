@@ -32,11 +32,10 @@ type OWMResponse struct {
 		Temp     Temperature
 		Pressure int
 		Humidity int
-		
 	}
-	
-	Wind struct{
-		Speed     float64
+
+	Wind struct {
+		Speed float64
 	}
 }
 
@@ -99,7 +98,7 @@ func ParseResponse(data []byte) (Conditions, error) {
 		Temperature: resp.Main.Temp,
 		Pressure:    resp.Main.Pressure,
 		Humidity:    resp.Main.Humidity,
-		Speed:        resp.Wind.Speed,
+		Speed:       resp.Wind.Speed,
 	}
 	return conditions, nil
 }
@@ -133,6 +132,6 @@ func RunCLI() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	fmt.Printf("%s %.1f %d %d %.1f\n", conditions.Summary, conditions.Temperature.Fahrenheit(), conditions.Pressure, conditions.Humidity, conditions.Speed)
+	fmt.Printf("Summary = %s\n Temperature =%.1f\n Pressure =%d\n Humidity =%d\n Wind speed =%.1f\n", conditions.Summary, conditions.Temperature.Fahrenheit(), conditions.Pressure, conditions.Humidity, conditions.Speed)
 
 }
