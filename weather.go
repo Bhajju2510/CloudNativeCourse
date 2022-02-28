@@ -13,12 +13,15 @@ import (
 type Temperature float64
 
 func (t Temperature) Fahrenheit() float64 {
-	return (float64(t) - 273.15)*(9.0/5.0) + 32.0
+	return (float64(t)-273.15)*(9.0/5.0) + 32.0
 }
 
 type Conditions struct {
 	Summary     string
 	Temperature Temperature
+	Pressure    int
+	Humidity    int
+	Wind        float64
 }
 
 type OWMResponse struct {
@@ -26,7 +29,10 @@ type OWMResponse struct {
 		Main string
 	}
 	Main struct {
-		Temp Temperature
+		Temp     Temperature
+		Pressure int
+		Humidity int
+		Wind     float64
 	}
 }
 
@@ -87,6 +93,9 @@ func ParseResponse(data []byte) (Conditions, error) {
 	conditions := Conditions{
 		Summary:     resp.Weather[0].Main,
 		Temperature: resp.Main.Temp,
+		Pressure:    resp.Main.Pressure,
+		Humidity:    resp.Main.Humidity,
+		Wind:        resp.Main.Wind,
 	}
 	return conditions, nil
 }
@@ -120,6 +129,6 @@ func RunCLI() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	fmt.Printf("%s %.1fº\n", conditions.Summary, conditions.Temperature.Fahrenheit())
+	fmt.Printf("%s %.1f %d %d %.1f\n", conditions.Summary, conditions.Temperature.Fahrenheit(), conditions.Pressure, conditions.Humidity, conditions.Wind)
 
 }
