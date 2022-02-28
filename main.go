@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Bhajju2510/CloudNativeCourse"
+	"github.com/Bhajju2510/CloudNativeCourse/weather"
 )
 
 func main() {
